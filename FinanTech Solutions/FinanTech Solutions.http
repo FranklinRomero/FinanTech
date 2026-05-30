@@ -1,0 +1,95 @@
+@baseUrl = https://localhost:7224
+
+### 1 — Executive PDF via API with Header + Watermark
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 0,
+  "format": 0,
+  "channel": 2,
+  "enhancements": ["Header", "Watermark"],
+  "recipientEmail": "",
+  "sharedFolderPath": "",
+  "requestingUserId": "user-exec-001"
+}
+
+###
+
+### 2 — Auditor Excel via Email with full decorator stack
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 1,
+  "format": 1,
+  "channel": 0,
+  "enhancements": ["Header", "Watermark", "Encryption", "Compression"],
+  "recipientEmail": "auditor@finantech.com",
+  "sharedFolderPath": "",
+  "requestingUserId": "user-aud-007"
+}
+
+###
+
+### 3 — Analyst CSV via Shared Folder with no decorators
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 2,
+  "format": 2,
+  "channel": 1,
+  "enhancements": [],
+  "recipientEmail": "",
+  "sharedFolderPath": "C:\\Reports\\Analyst",
+  "requestingUserId": "user-ana-003"
+}
+
+###
+
+### 4 — Invalid user type (expects 400)
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 99,
+  "format": 0,
+  "channel": 2,
+  "enhancements": [],
+  "recipientEmail": "",
+  "sharedFolderPath": "",
+  "requestingUserId": "user-unknown"
+}
+
+###
+
+### 5 — Decorator order test A: Encryption first
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 0,
+  "format": 2,
+  "channel": 2,
+  "enhancements": ["Encryption", "Header"],
+  "recipientEmail": "",
+  "sharedFolderPath": "",
+  "requestingUserId": "user-order-test"
+}
+
+###
+
+### 5b — Decorator order test B: Header first (appliedEnhancements order differs from 5a)
+POST {{baseUrl}}/api/reports/generate
+Content-Type: application/json
+
+{
+  "userType": 0,
+  "format": 2,
+  "channel": 2,
+  "enhancements": ["Header", "Encryption"],
+  "recipientEmail": "",
+  "sharedFolderPath": "",
+  "requestingUserId": "user-order-test"
+}

@@ -1,0 +1,30 @@
+## Visual Studio cache
+.vs/
+
+## Build output
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## OS
+Thumbs.db
+.DS_Store
+
+## Secrets / env
+*.env
+appsettings.Local.json
+appsettings.*.Local.json
+secrets.json
